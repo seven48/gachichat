@@ -1,3 +1,3 @@
 """ Main url configuration """
 
-urlpatterns = []
+urlpatterns = []  # pylint: disable=C0103
