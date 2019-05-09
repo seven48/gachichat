@@ -7,6 +7,16 @@ import os
 # Hardcoded settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = []
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': os.getenv('MONGODB_NAME', 'gachichat'),
+        'HOST': os.getenv('MONGODB_HOST', 'localhost'),
+        'PORT': int(os.getenv('MONGODB_PORT', '27017')),
+        'USER': os.getenv('MONGODB_USER'),
+        'PASSWORD': os.getenv('MONGODB_PASSWORD')
+    }
+}
 ROOT_URLCONF = 'server.urls'
 
 # Customizable settings
