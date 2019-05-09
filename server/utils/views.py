@@ -8,7 +8,7 @@ from server.settings import DEBUG
 
 class WrongMethod(Exception):
     """ Request method is not allowed """
-    pass  # pylint: disable=W0107
+    pass
 
 
 class ABSView:
@@ -22,7 +22,7 @@ class ABSView:
     @staticmethod
     def error(error):
         """ Method that is being called on error in "data" method """
-        pass  # pylint: disable=W0107
+        pass
 
     @staticmethod
     def error_message(error):
@@ -30,12 +30,12 @@ class ABSView:
         return str(error)
 
     @staticmethod
-    def error_status(error):  # pylint: disable=W0613
+    def error_status(error):
         """ Getting error status """
         return 500
 
     def _error(self, error):
-        """ Private method with error handling """
+        """ Private error handling """
         response = {}
         response['status'] = 'error'
         response['error'] = {}
@@ -53,7 +53,6 @@ class ABSView:
 
 
 class View(ABSView):
-    """ Higher level abstract view class """
     def __new__(cls, request, methods=None):
         """ Overriding class creating """
         inst = super(View, cls).__new__(cls)
@@ -67,13 +66,13 @@ class View(ABSView):
                         request.method
                     )
                 )
-                return inst._error(err)  # pylint: disable=W0212
+                return inst._error(err)
 
         try:
             return JsonResponse({
                 'status': 'success',
                 'data': inst.data()
             })
-        except Exception as err:  # pylint: disable=W0703
+        except Exception as err:
             inst.error(err)
-            return inst._error(err)  # pylint: disable=W0212
+            return inst._error(err)

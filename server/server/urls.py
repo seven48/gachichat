@@ -1,3 +1,11 @@
 """ Main url configuration """
 
-urlpatterns = []  # pylint: disable=C0103
+
+from django.urls import path, include
+
+from users.urls import URLS as users_router
+
+
+urlpatterns = [
+    path(r'users/', include(users_router))
+]

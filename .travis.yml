@@ -5,8 +5,6 @@ matrix:
       - 3.6
       install:
       - pip install -r server/requirements.txt
-      - pip install pylint
+      - pip install flake8
       script:
-      - pylint server/manage.py
-      - pylint server/server/
-      - pylint server/utils/
+      - find -name "*.py" -not -path "./*/migrations/*" -not -path "./venv/*" | flake8

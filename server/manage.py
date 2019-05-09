@@ -4,7 +4,7 @@ import os
 import sys
 
 
-def main():  # pylint: disable=C0111
+def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
     try:
         from django.core.management import execute_from_command_line
