@@ -9,3 +9,4 @@ matrix:
       script:
       - pylint server/manage.py
       - pylint server/server/
+      - pylint server/utils/
