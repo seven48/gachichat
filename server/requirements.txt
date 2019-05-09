@@ -1,2 +1,4 @@
 Django==2.2.1
 psycopg2==2.8.2
+PyJWT==1.7.1
+requests==2.21.0
