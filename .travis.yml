@@ -7,4 +7,4 @@ matrix:
       - pip install -r server/requirements.txt
       - pip install flake8
       script:
-      - find -name "*.py" -not -path "./*/migrations/*" -not -path "./venv/*" | flake8
+      - flake8 $(find -name "*.py" -not -path "./**/*/migrations/*" -not -path "./*/venv/*")
