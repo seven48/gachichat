@@ -1,6 +1,12 @@
 # Gachichat Backend 
 
-## Environment variables
+* <a href="#environment-variables">Environment variables</a>
+* <a href="#api">API</a>
+* * <a href="#users">Users</a>
+* * * <a href="#post-userscreate">create</a>
+* * * <a href="#get-usersgetme">getMe</a>
+
+# Environment variables
 
 You can customize the application using environment variables
 
@@ -59,3 +65,41 @@ You can customize the application using environment variables
         <td>604800</td>
     </tr>
 </table>
+
+# API
+
+## Users
+
+### POST `/users/create`
+
+Create new user instance
+
+Response:
+```
+{
+    token: 'yourAPItoken'
+    first_name: 'maria'
+    last_name: 'hart'
+    created: 1557444096
+    expired_in: 1558048896
+}
+```
+
+### GET `/users/getMe`
+
+Get information of user
+
+Headers:
+```
+{
+    Authorization: 'yourAPItoken'
+}
+```
+
+Response:
+```
+{
+    first_name: 'maria'
+    last_name: 'hart'
+}
+```
