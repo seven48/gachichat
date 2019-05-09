@@ -5,6 +5,7 @@
 * * <a href="#users">Users</a>
 * * * <a href="#post-userscreate">create</a>
 * * * <a href="#get-usersgetme">getMe</a>
+* <a href="#installation">Installation</a>
 
 # Environment variables
 
@@ -103,3 +104,63 @@ Response:
     last_name: 'hart'
 }
 ```
+
+# Installation
+
+It's very easy. Follow the instructions:
+
+## Python and dependencies
+
+1. Install the Python interpreter using the batch manager of your operating system.
+2. Create virtual environment
+```
+$ virtualenv venv -p python3 --no-site-packages
+Running virtualenv with interpreter /bin/python3
+...
+done
+```
+3. Enter to virtual environment
+```
+$ source venv/bin/activate
+```
+4. Install all dependencies using pip
+```
+(venv) $ pip install -r requirements.txt
+Collecting...
+...
+Successfully installed...
+```
+
+## PostgreSQL
+
+1. Install PostgreSQL using your package manager of your OS
+2. Run it like a daemon
+```
+$ systemctl start postgresql.service
+```
+3. Open PostgreSQL console
+```
+$ sudo -u postgres psql postgres
+```
+4. Create database
+```
+# create database gachichat owner postgres
+```
+5. That is all. Just log out from postgres user by pressing `CTRL + D`
+
+__If you have difficulties with postgresql consult your operating system documentation__
+
+## Migrations
+
+After the previous two steps you need to enter again the virtual environment (step 3 in python) and apply all migrations
+```
+(venv) $ python manage.py migrate
+```
+
+## Fin
+
+That's all. You awesome. Just run
+```
+(venv) $ python manage.py runserver
+```
+And have fun!
