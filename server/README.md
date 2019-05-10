@@ -6,6 +6,7 @@
 * * * <a href="#get-usersgetme">getMe</a>
 * * <a href="#rooms">Rooms</a>
 * * * <a href="#post-roomscreate">create</a>
+* * * <a href="#get-roomsinfo">info</a>
 * <a href="#installation">Installation</a>
 
 # Environment variables
@@ -122,6 +123,27 @@ __Response:__
         created: 1557492563
         password: 'qwerty12+'
     }
+}
+```
+
+## GET `/rooms/info`
+
+Get information of room
+
+__Headers:__
+```
+{
+    Authorization: 'yourAPItoken'
+}
+```
+
+__Response:__
+```
+{
+    name: 'Soap_Laptop'
+    description: ''
+    link: ''
+    created: 1557492563
 }
 ```
 
