@@ -1,12 +1,9 @@
 """ Users module urls """
 
 
-from django.urls import path
+from engine.route import Router
+from users.views import get_me
 
-from users.views import create, get_me
 
-
-URLS = [
-    path('create', create.Route.methods(['POST'])),
-    path('getMe', get_me.Route.methods(['GET']))
-]
+router = Router()
+router.get('getMe', get_me.Route)

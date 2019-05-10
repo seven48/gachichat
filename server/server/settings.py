@@ -7,7 +7,8 @@ import os
 # Hardcoded settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
-    'users'
+    'users',
+    'rooms'
 ]
 ROOT_URLCONF = 'server.urls'
 

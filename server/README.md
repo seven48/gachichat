@@ -3,8 +3,9 @@
 * <a href="#environment-variables">Environment variables</a>
 * <a href="#api">API</a>
 * * <a href="#users">Users</a>
-* * * <a href="#post-userscreate">create</a>
 * * * <a href="#get-usersgetme">getMe</a>
+* * <a href="#rooms">Rooms</a>
+* * * <a href="#post-roomscreate">create</a>
 * <a href="#installation">Installation</a>
 
 # Environment variables
@@ -71,21 +72,6 @@ You can customize the application using environment variables
 
 ## Users
 
-### POST `/users/create`
-
-Create new user instance
-
-Response:
-```
-{
-    token: 'yourAPItoken'
-    first_name: 'maria'
-    last_name: 'hart'
-    created: 1557444096
-    expired_in: 1558048896
-}
-```
-
 ### GET `/users/getMe`
 
 Get information of user
@@ -102,6 +88,36 @@ Response:
 {
     first_name: 'maria'
     last_name: 'hart'
+}
+```
+
+## Rooms
+
+### POST `/rooms/create`
+
+Create random named room and user for this room
+
+JSON POST Data:
+
+_password_ - Password for creating room [optional]
+
+Response:
+```
+{
+    user: {
+        token: 'yourAPItoken'
+        first_name: 'maria'
+        last_name: 'hart'
+        created: 1557492563
+        expired_in: 1558097363
+    }
+    room: {
+        id: 10
+        name: 'Soap_Laptop'
+        description: ''
+        created: 1557492563
+        password: 'qwerty12+'
+    }
 }
 ```
 
