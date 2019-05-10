@@ -76,14 +76,14 @@ You can customize the application using environment variables
 
 Get information of user
 
-Headers:
+__Headers:__
 ```
 {
     Authorization: 'yourAPItoken'
 }
 ```
 
-Response:
+__Response:__
 ```
 {
     first_name: 'maria'
@@ -97,11 +97,15 @@ Response:
 
 Create random named room and user for this room
 
-JSON POST Data:
+__JSON POST Data:__
 
-_password_ - Password for creating room [optional]
+password [optional] - Password for creating room. If you set it, your room will be private.
 
-Response:
+name [optional] - Name of the creating room. Default is random words.
+
+description [optional] - Description of the creating room.
+
+__Response:__
 ```
 {
     user: {

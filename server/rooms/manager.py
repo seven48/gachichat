@@ -34,10 +34,15 @@ class RoomManager(models.Manager):
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
         return pwdhash == stored_password
 
-    def new_room(self, password=''):
-        room = self.create(
-            password=self.hash_pass(password) if password else ''
-        )
+    def new_room(self, **kwargs):
+        room_creating_data = {}
+        if kwargs.get('password'):
+            room_creating_data['password'] = self.hash_pass(kwargs['password'])
+        if kwargs.get('name'):
+            room_creating_data['name'] = kwargs['name']
+        if kwargs.get('description'):
+            room_creating_data['description'] = kwargs['description']
+        room = self.create(**room_creating_data)
         user = UserProfile.objects.new_user(
             room=room
         )
@@ -46,8 +51,8 @@ class RoomManager(models.Manager):
         room_info['name'] = room.name
         room_info['description'] = room.description
         room_info['created'] = int(room.created.timestamp())
-        if password:
-            room_info['password'] = password
+        if kwargs.get('password'):
+            room_info['password'] = kwargs['password']
 
         return {
             'user': user,
