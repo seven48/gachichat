@@ -1,7 +1,7 @@
 """ Route for getting info about created user """
 
 from users.models import UserProfile
-from utils.views import View
+from engine.views import View
 
 
 class Route(View):

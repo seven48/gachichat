@@ -1,8 +1,8 @@
 from users.models import UserProfile
-from utils.views import View
+from engine.views import View
 
 
-class View(View):
+class Route(View):
     @staticmethod
     def data():
         return UserProfile.objects.new_user()
