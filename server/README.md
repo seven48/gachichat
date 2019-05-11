@@ -8,6 +8,8 @@
 * * <a href="#rooms">Rooms</a>
 * * * <a href="#post-roomscreate">create</a>
 * * * <a href="#get-roomsinfo">info</a>
+* * <a href="#messages">Messages</a>
+* * * <a href="#post-messagessend">send</a>
 * <a href="#installation">Installation</a>
 
 # Environment variables
@@ -176,6 +178,34 @@ __Response:__
     description: ''
     link: ''
     created: 1557492563
+}
+```
+
+## Messages
+
+### POST `/messages/send`
+
+Send message to room
+
+__Headers:__
+```
+{
+    Authorization: 'yourAPItoken'
+}
+```
+
+__Response:__
+```
+{
+    id: 19
+    text: 'Hello. This is text of message'
+    created: 1557615906
+    user: {
+        id: 14
+    }
+    room: {
+        id: 5
+    }
 }
 ```
 
