@@ -38,27 +38,32 @@ You can customize the application using environment variables
     </tr>
     <td colspan="3" align="center">Database settings</td>
     <tr>
-        <td>POSTGRES_NAME</td>
+        <td>DATABASE_ENGINE</td>
+        <td>Django database engine that will used for ORM</td>
+        <td>django.db.backends.postgresql_psycopg2</td>
+    </tr>
+    <tr>
+        <td>DATABASE_NAME</td>
         <td>PostgreSQL database name</td>
         <td>gachichat</td>
     </tr>
     <tr>
-        <td>POSTGRES_HOST</td>
+        <td>DATABASE_HOST</td>
         <td>PostgreSQL host name</td>
         <td>127.0.0.1</td>
     </tr>
     <tr>
-        <td>POSTGRES_PORT</td>
+        <td>DATABASE_PORT</td>
         <td>PostgreSQL port</td>
         <td>5432</td>
     </tr>
     <tr>
-        <td>POSTGRES_USER</td>
+        <td>DATABASE_USER</td>
         <td>Username for PostgreSQL auth</td>
         <td>postgres</td>
     </tr>
     <tr>
-        <td>POSTGRES_PASSWORD</td>
+        <td>DATABASE_PASSWORD</td>
         <td>Password for PostgreSQL auth</td>
         <td></td>
     </tr>
