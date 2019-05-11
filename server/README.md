@@ -44,30 +44,35 @@ You can customize the application using environment variables
     </tr>
     <tr>
         <td>DATABASE_NAME</td>
-        <td>PostgreSQL database name</td>
+        <td>Your database name</td>
         <td>gachichat</td>
     </tr>
     <tr>
         <td>DATABASE_HOST</td>
-        <td>PostgreSQL host name</td>
+        <td>Your database host name</td>
         <td>127.0.0.1</td>
     </tr>
     <tr>
         <td>DATABASE_PORT</td>
-        <td>PostgreSQL port</td>
+        <td>DB port</td>
         <td>5432</td>
     </tr>
     <tr>
         <td>DATABASE_USER</td>
-        <td>Username for PostgreSQL auth</td>
+        <td>Username for DB auth</td>
         <td>postgres</td>
     </tr>
     <tr>
         <td>DATABASE_PASSWORD</td>
-        <td>Password for PostgreSQL auth</td>
+        <td>Password for DB auth</td>
         <td></td>
     </tr>
     <td colspan="3" align="center">Other settings</td>
+    <tr>
+        <td>SECRET_KEY</td>
+        <td>Secret key for hashing and encoding</td>
+        <td></td>
+    </tr>
     <tr>
         <td>USER_TOKEN_EXPIRING</td>
         <td>Count of seconds for JSON Web Token lifetime</td>
