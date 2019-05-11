@@ -3,6 +3,7 @@
 * <a href="#environment-variables">Environment variables</a>
 * <a href="#api">API</a>
 * * <a href="#users">Users</a>
+* * * <a href="#post-userscreate">create</a>
 * * * <a href="#get-usersgetme">getMe</a>
 * * <a href="#rooms">Rooms</a>
 * * * <a href="#post-roomscreate">create</a>
@@ -72,6 +73,27 @@ You can customize the application using environment variables
 # API
 
 ## Users
+
+### POST `/users/create`
+
+Create new user for chosen room
+
+__JSON POST Data:__
+
+room_id - Numeric value for id of the room for registration
+
+password [optional] - Password for the room. If password is setted
+
+__Response:__
+```
+{
+    token: 'yourAPItoken'
+    first_name: 'maria'
+    last_name: 'hart'
+    created: 1557492563
+    expired_in: 1558097363
+}
+```
 
 ### GET `/users/getMe`
 
