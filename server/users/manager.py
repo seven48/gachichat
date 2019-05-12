@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from server.settings import SECRET_KEY, USER_TOKEN_EXPIRING
+from engine.exceptions import APITokenError
 
 
 class UserManager(models.Manager):
@@ -40,16 +41,16 @@ class UserManager(models.Manager):
         try:
             payload = jwt.decode(token, SECRET_KEY)
         except jwt.DecodeError:
-            raise Exception('Token is not valid')
+            raise APITokenError()
         else:
             now = int(timezone.now().timestamp())
             if now > payload['expired_in']:
-                raise Exception('Token expired')
+                raise APITokenError('Token expired')
             user = self.filter(id=payload['user_id']).first()
             if not user:
-                raise Exception('User is not found')
+                raise APITokenError('User is not found')
             if not user.active:
-                raise Exception('User is not active')
+                raise APITokenError('User is not active')
             return user
 
     @staticmethod

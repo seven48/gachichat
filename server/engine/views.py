@@ -1,115 +1,70 @@
-""" Abstract views with error handlers etc """
-
-
-import json
-
-from datetime import datetime
-
 from django.http import JsonResponse
 
-from server.settings import DEBUG
+from engine.exceptions import APIWrongMethod, APITokenError
+from engine.body import JSONBody
+from users.models import UserProfile
 
 
-class ABSView:
-    """" Abstract view class """
-
-    def __new__(cls, request, methods=None):
-        """ Overriding class creating """
-        inst = super(ABSView, cls).__new__(cls)
+class ABSViewSet:
+    def __new__(cls, request):
+        inst = super(ABSViewSet, cls).__new__(cls)
         inst.request = request
-        inst.methods = methods
 
-        if methods:
-            if request.method not in methods:
-                err = Exception(
-                    'Method {} is not allowed'.format(
-                        request.method
-                    )
-                )
-                return inst._error(err)
-
-        return inst._handler()
-
-    def _handler(self):
-        """ Error catcher """
         try:
-            return self.response()
+            inst.request.json = JSONBody(
+                inst.request.body,
+                inst.request.content_type
+            )
+
+            response = {}
+            response['status'] = 'success'
+            response['data'] = inst.data()
+
+            return JsonResponse(response)
         except Exception as err:
-            return self._error(err)
-
-    def response(self):
-        """ Build response data """
-        return JsonResponse({
-            'status': 'ok',
-            'data': self.data()
-        })
+            inst.error()
+            return inst._get_error(err)
 
     @staticmethod
-    def data():
-        """ Getting data for response """
-        return []
-
-    @staticmethod
-    def error(error):
-        """ Method that is being called on error in "data" method """
-        pass
-
-    @staticmethod
-    def error_message(error):
-        """ Getting error message """
-        return str(error)
-
-    @staticmethod
-    def error_status(error):
-        """ Getting error status """
-        return 500
-
-    def _error(self, error):
-        """ Private error handling """
-        self.error(error)
+    def _get_error(err):
         response = {}
         response['status'] = 'error'
         response['error'] = {}
-        response['error']['message'] = self.error_message(error)
-        if DEBUG:
-            response['error']['name'] = error.__class__.__name__
-        return JsonResponse(response, status=self.error_status(error))
+        if hasattr(err, 'code'):
+            response['error']['code'] = err.code
+            response['error']['message'] = str(err)
+        else:
+            response['error']['code'] = 0
+            response['error']['message'] = 'Unknown error'
+
+        return JsonResponse(response, status=500)
 
     @classmethod
-    def methods(cls, methods):
+    def methods(cls, methods=[]):
         """ Setting allowed methods """
         def wrapper(request):
-            return cls(request, methods=methods)
+            if request.method not in methods:
+                err = APIWrongMethod(request.method)
+                return cls._get_error(err)
+            return cls(request)
         return wrapper
 
+    # USER METHODS
+    @staticmethod
+    def data():
+        """ Getting data for response """
+        return None
 
-class View(ABSView):
-    def get_JSON_body(self):
-        if self.request.content_type == 'application/json':
-            if self.request.body:
-                return json.loads(self.request.body)
-        return {}
-
-    def _handler(self):
-        try:
-            self.request.json = self.get_JSON_body()
-            return self.response()
-        except json.JSONDecodeError:
-            return self._error(Exception('JSON data is not valid'))
-        except Exception as err:
-            return self._error(err)
+    @staticmethod
+    def error():
+        """ Method that is being called on error in "data" method """
+        return None
 
 
-class LongPollingView(ABSView):
-    def response(self):
-        start = int(datetime.now().timestamp())
-
-        while True:
-            now = int(datetime.now().timestamp())
-
-            data = self.data()
-            if data:
-                return JsonResponse(data)
-
-            if now > start + 25:
-                return JsonResponse([])
+class View(ABSViewSet):
+    def user(self):
+        if not self.request.META.get('HTTP_AUTHORIZATION'):
+            raise APITokenError('Header "Authorization" is empty')
+        return UserProfile.objects.decode_token(
+            self.request.META['HTTP_AUTHORIZATION']
+        )
