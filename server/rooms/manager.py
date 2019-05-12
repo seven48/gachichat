@@ -5,6 +5,7 @@ import os
 import requests
 from django.db import models
 
+from engine.serializer import to_json
 from users.models import UserProfile
 
 
@@ -34,30 +35,19 @@ class RoomManager(models.Manager):
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
         return pwdhash == stored_password
 
-    def new_room(self, **kwargs):
-        room_creating_data = {}
-        if kwargs.get('password'):
-            room_creating_data['password'] = self.hash_pass(kwargs['password'])
-        if kwargs.get('name'):
-            room_creating_data['name'] = kwargs['name']
-        if kwargs.get('description'):
-            room_creating_data['description'] = kwargs['description']
-        room = self.create(**room_creating_data)
+    def new_room(self, **options):
+        room = self.create(**options)
         user = UserProfile.objects.new_user(
             room=room
         )
-        room_info = {}
-        room_info['id'] = room.id
-        room_info['name'] = room.name
-        room_info['description'] = room.description
-        room_info['created'] = int(room.created.timestamp())
-        if kwargs.get('password'):
-            room_info['password'] = kwargs['password']
 
-        return {
-            'user': user,
-            'room': room_info
-        }
+        response = {}
+        response['room'] = to_json(room)
+        response['user'] = user
+        if options.get('password'):
+            response['password'] = options['room']['password']
+
+        return response
 
     @staticmethod
     def get_room_name():

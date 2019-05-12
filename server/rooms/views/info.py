@@ -1,13 +1,9 @@
 from engine.views import View
+from engine.serializer import to_json
 
 
 class Route(View):
     def data(self):
         user = self.user()
         room = user.room
-        return {
-            'name': room.name,
-            'description': room.description,
-            'link': room.link,
-            'created': int(room.created.timestamp())
-        }
+        return to_json(room)

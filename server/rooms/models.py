@@ -26,3 +26,6 @@ class Room(models.Model):
     )
 
     objects = RoomManager()
+
+    class Serializer:
+        fields = ('id', 'name', 'description', 'link', 'created')

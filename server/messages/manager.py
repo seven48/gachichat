@@ -9,14 +9,4 @@ class MessageManager(models.Manager):
             text=text
         )
 
-        return {
-            'id': message.id,
-            'text': message.text,
-            'created': int(message.datetime.timestamp()),
-            'user': {
-                'id': user.id
-            },
-            'room': {
-                'id': user.room.id
-            }
-        }
+        return message

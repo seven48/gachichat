@@ -18,8 +18,11 @@ class Messages(models.Model):
         null=False,
         blank=False
     )
-    datetime = models.DateTimeField(
+    created = models.DateTimeField(
         auto_now_add=True
     )
 
     objects = MessageManager()
+
+    class Serializer:
+        fields = ('id', 'user', 'text', 'created')

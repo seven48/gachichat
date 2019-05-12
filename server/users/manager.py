@@ -3,6 +3,7 @@ import jwt
 from django.db import models
 from django.utils import timezone
 
+from engine.serializer import to_json
 from server.settings import SECRET_KEY, USER_TOKEN_EXPIRING
 from engine.exceptions import APITokenError
 
@@ -28,13 +29,10 @@ class UserManager(models.Manager):
             SECRET_KEY,
             algorithm='HS256'
         )
-        return {
-            'token': token.decode('UTF-8'),
-            'created': created,
-            'expired_in': expired_in,
-            'first_name': first_name,
-            'last_name': last_name
-        }
+        response = to_json(user)
+        response['token'] = token.decode('UTF-8')
+        response['expired_in'] = expired_in
+        return response
 
     def decode_token(self, token):
         """ Decodes JWT and returns found user """

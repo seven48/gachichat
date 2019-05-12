@@ -1,23 +1,6 @@
 from engine.views import View
+from engine.serializer import to_json
 from messages.models import Messages
-
-
-def serializer(queryset, count, offset):
-    def mapping(item):
-        return {
-            'id': item.id,
-            'text': item.text,
-            'created': int(item.datetime.timestamp()),
-            'room': {
-                'id': item.room.id
-            },
-            'user': {
-                'id': item.user.id
-            }
-        }
-
-    items = map(mapping, queryset[offset:offset+count])
-    return list(items)
 
 
 class Route(View):
@@ -26,8 +9,5 @@ class Route(View):
         offset = int(self.request.GET.get('offset') or '0')
         user = self.user()
         room = user.room
-        return serializer(
-            Messages.objects.filter(room=room).order_by('-id'),
-            count,
-            offset
-        )
+        queryset = Messages.objects.filter(room=room).order_by('-id')
+        return [to_json(item) for item in queryset[offset:offset+count]]

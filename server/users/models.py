@@ -33,3 +33,6 @@ class UserProfile(models.Model):
     )
 
     objects = UserManager()
+
+    class Serializer:
+        fields = ('id', 'first_name', 'last_name', 'created')
