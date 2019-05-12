@@ -100,6 +100,7 @@ password [optional] - Password for the room. If password is setted
 __Response:__
 ```
 {
+    id: 26,
     token: 'yourAPItoken'
     first_name: 'maria'
     last_name: 'hart'
@@ -122,8 +123,10 @@ __Headers:__
 __Response:__
 ```
 {
+    id: 26
     first_name: 'maria'
     last_name: 'hart'
+    created: 1557492563
 }
 ```
 
@@ -145,6 +148,7 @@ __Response:__
 ```
 {
     user: {
+        id: 26,
         token: 'yourAPItoken'
         first_name: 'maria'
         last_name: 'hart'
@@ -155,6 +159,7 @@ __Response:__
         id: 10
         name: 'Soap_Laptop'
         description: ''
+        link: ''
         created: 1557492563
         password: 'qwerty12+'
     }
@@ -175,6 +180,7 @@ __Headers:__
 __Response:__
 ```
 {
+    id: 10
     name: 'Soap_Laptop'
     description: ''
     link: ''
@@ -202,10 +208,10 @@ __Response:__
     text: 'Hello. This is text of message'
     created: 1557615906
     user: {
-        id: 14
-    }
-    room: {
-        id: 5
+        id: 26,
+        first_name: 'maria'
+        last_name: 'hart'
+        created: 1557492563
     }
 }
 ```
@@ -234,11 +240,11 @@ __Response:__
         id: 19
         text: 'Hello. This is text of message'
         created: 1557615906
-        room: {
-            id: 5
-        }
         user: {
-            id: 14
+            id: 26,
+            first_name: 'maria'
+            last_name: 'hart'
+            created: 1557492563
         }
     }
 ]
