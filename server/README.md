@@ -10,6 +10,7 @@
 * * * <a href="#get-roomsinfo">info</a>
 * * <a href="#messages">Messages</a>
 * * * <a href="#post-messagessend">send</a>
+* * * <a href="#get-messagesget">get</a>
 * <a href="#installation">Installation</a>
 
 # Environment variables
@@ -208,6 +209,41 @@ __Response:__
     }
 }
 ```
+
+### GET `/messages/get`
+
+Getting all or filtered messages
+
+__Headers:__
+```
+{
+    Authorization: 'yourAPItoken'
+}
+```
+
+__GET arguments:__
+
+offset [optional] - count of messages for offset
+
+count [optional] - numeric value of count messages in response
+
+__Response:__
+```
+[
+    {
+        id: 19
+        text: 'Hello. This is text of message'
+        created: 1557615906
+        room: {
+            id: 5
+        }
+        user: {
+            id: 14
+        }
+    }
+]
+```
+
 
 # Installation
 
